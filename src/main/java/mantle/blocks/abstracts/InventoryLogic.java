@@ -114,7 +114,11 @@ public abstract class InventoryLogic extends TileEntity implements IInventory, I
 
         for (int i = 0; i < nbttaglist.tagCount(); ++i) {
             NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-            int j = nbttagcompound1.getShort("Slot") & 0xffff;
+
+            int j = nbttagcompound1.getShort("Slot");
+
+            // Backwards compatibility for when "Slot" was stored in a byte
+            if (j < 0) j += 256;
 
             if (j >= 0 && j < this.inventory.length) {
                 this.inventory[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
