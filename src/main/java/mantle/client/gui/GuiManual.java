@@ -71,14 +71,28 @@ public class GuiManual extends GuiScreen {
         this.buttonList.add(this.buttonNextPage = new TurnPageButton(1, xPos + bookImageWidth - 50, 180, true, bData));
         this.buttonList
                 .add(this.buttonPreviousPage = new TurnPageButton(2, xPos - bookImageWidth + 24, 180, false, bData));
+        updateButtonVisibility();
+    }
+
+    private void updateButtonVisibility() {
+        buttonPreviousPage.visible = currentPage > 0;
+        buttonNextPage.visible = currentPage < maxPages - 2;
     }
 
     protected void actionPerformed(GuiButton button) {
         if (button.enabled) {
-            if (button.id == 1) currentPage += 2;
-            if (button.id == 2) currentPage -= 2;
-
+            changePage(button.id);
+            updateButtonVisibility();
             updateText();
+        }
+    }
+
+    private void changePage(int buttonId) {
+        if (buttonId == 1) {
+            currentPage += 2;
+        }
+        if (buttonId == 2) {
+            currentPage -= 2;
         }
     }
 
