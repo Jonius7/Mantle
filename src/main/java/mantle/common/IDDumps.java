@@ -2,11 +2,11 @@ package mantle.common;
 
 import static mantle.lib.CoreRepo.logger;
 
-import mantle.lib.CoreConfig;
-
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.potion.Potion;
 import net.minecraft.world.biome.BiomeGenBase;
+
+import mantle.lib.CoreConfig;
 
 public class IDDumps {
 

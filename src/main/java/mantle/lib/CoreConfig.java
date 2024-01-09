@@ -6,11 +6,11 @@ import static mantle.lib.CoreRepo.modId;
 import java.io.File;
 import java.io.IOException;
 
-import mantle.books.external.ZipLoader;
-
 import net.minecraftforge.common.config.Configuration;
 
 import org.apache.commons.io.FilenameUtils;
+
+import mantle.books.external.ZipLoader;
 
 /**
  * Mantle configuration handler

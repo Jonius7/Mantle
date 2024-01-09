@@ -5,6 +5,12 @@ import static mantle.lib.CoreRepo.logger;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+
 import mantle.books.BookData;
 import mantle.books.BookDataStore;
 import mantle.client.gui.GuiManual;
@@ -19,12 +25,6 @@ import mantle.client.pages.SidebarPage;
 import mantle.client.pages.TextPage;
 import mantle.client.pages.TitlePage;
 import mantle.common.MProxyCommon;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 
 public class MProxyClient extends MProxyCommon {
 

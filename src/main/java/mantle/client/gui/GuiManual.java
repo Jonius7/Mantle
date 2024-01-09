@@ -1,11 +1,5 @@
 package mantle.client.gui;
 
-import mantle.books.BookData;
-import mantle.client.MProxyClient;
-import mantle.client.RenderItemCopy;
-import mantle.client.SmallFontRenderer;
-import mantle.client.pages.BookPage;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -20,6 +14,11 @@ import org.w3c.dom.NodeList;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mantle.books.BookData;
+import mantle.client.MProxyClient;
+import mantle.client.RenderItemCopy;
+import mantle.client.SmallFontRenderer;
+import mantle.client.pages.BookPage;
 
 @SideOnly(Side.CLIENT)
 public class GuiManual extends GuiScreen {

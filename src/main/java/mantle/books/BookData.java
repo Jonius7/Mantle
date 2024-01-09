@@ -1,10 +1,10 @@
 package mantle.books;
 
-import mantle.client.SmallFontRenderer;
-
 import net.minecraft.util.ResourceLocation;
 
 import org.w3c.dom.Document;
+
+import mantle.client.SmallFontRenderer;
 
 public class BookData {
 

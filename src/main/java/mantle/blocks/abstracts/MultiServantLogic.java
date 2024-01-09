@@ -1,12 +1,5 @@
 package mantle.blocks.abstracts;
 
-import mantle.blocks.BlockUtils;
-import mantle.blocks.iface.IMasterLogic;
-import mantle.blocks.iface.IServantLogic;
-import mantle.debug.DebugData;
-import mantle.debug.IDebuggable;
-import mantle.world.CoordTuple;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,6 +8,13 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
+import mantle.blocks.BlockUtils;
+import mantle.blocks.iface.IMasterLogic;
+import mantle.blocks.iface.IServantLogic;
+import mantle.debug.DebugData;
+import mantle.debug.IDebuggable;
+import mantle.world.CoordTuple;
 
 public class MultiServantLogic extends TileEntity implements IServantLogic, IDebuggable {
 

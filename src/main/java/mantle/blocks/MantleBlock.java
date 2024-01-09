@@ -1,9 +1,5 @@
 package mantle.blocks;
 
-import mantle.debug.DebugHelper;
-import mantle.debug.IDebuggable;
-import mantle.items.iface.IDebugItem;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,6 +9,9 @@ import net.minecraft.world.World;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
+import mantle.debug.DebugHelper;
+import mantle.debug.IDebuggable;
+import mantle.items.iface.IDebugItem;
 
 /**
  * Root class for inheriting the Minecraft Block.

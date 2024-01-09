@@ -2,11 +2,10 @@ package mantle.pulsar.config;
 
 import java.io.*;
 
-import mantle.pulsar.pulse.PulseMeta;
-
 import net.minecraftforge.common.config.Configuration;
 
 import cpw.mods.fml.common.Loader;
+import mantle.pulsar.pulse.PulseMeta;
 
 /**
  * Mantle specific pulsar addon class to support using the forge CFG format for configurations

@@ -3,12 +3,12 @@ package mantle.lib.client;
 import java.util.HashMap;
 import java.util.Map;
 
-import mantle.books.client.BookImage;
-
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import com.google.common.collect.Maps;
+
+import mantle.books.client.BookImage;
 
 public class MantleClientRegistry {
 
