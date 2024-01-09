@@ -11,12 +11,6 @@ import java.util.zip.ZipFile;
 
 import javax.imageio.ImageIO;
 
-import mantle.books.BookData;
-import mantle.books.BookDataStore;
-import mantle.books.ManualReader;
-import mantle.books.client.BookImage;
-import mantle.lib.client.MantleClientRegistry;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -37,6 +31,11 @@ import com.google.gson.JsonObject;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
+import mantle.books.BookData;
+import mantle.books.BookDataStore;
+import mantle.books.ManualReader;
+import mantle.books.client.BookImage;
+import mantle.lib.client.MantleClientRegistry;
 
 public class ZipLoader {
 

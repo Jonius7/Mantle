@@ -1,8 +1,8 @@
 package mantle.blocks.iface;
 
-import mantle.world.CoordTuple;
-
 import net.minecraft.world.World;
+
+import mantle.world.CoordTuple;
 
 public interface IServantLogic {
 

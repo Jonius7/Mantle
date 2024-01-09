@@ -1,8 +1,5 @@
 package mantle.blocks.abstracts;
 
-import mantle.debug.DebugData;
-import mantle.debug.IDebuggable;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -13,6 +10,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
+import mantle.debug.DebugData;
+import mantle.debug.IDebuggable;
 
 /*
  * A simple logic class for storing items Abstract to avoid instantiation

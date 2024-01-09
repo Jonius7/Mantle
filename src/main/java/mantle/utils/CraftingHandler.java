@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import mantle.lib.CoreConfig;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -20,7 +18,9 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+
 import cpw.mods.fml.common.registry.GameRegistry;
+import mantle.lib.CoreConfig;
 
 public class CraftingHandler {
 

@@ -2,12 +2,6 @@ package mantle.items;
 
 import java.util.List;
 
-import mantle.Mantle;
-import mantle.books.BookDataStore;
-import mantle.event.ManualOpenEvent;
-import mantle.items.abstracts.CraftingItem;
-import mantle.lib.CoreRepo;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -17,6 +11,11 @@ import net.minecraftforge.common.MinecraftForge;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mantle.Mantle;
+import mantle.books.BookDataStore;
+import mantle.event.ManualOpenEvent;
+import mantle.items.abstracts.CraftingItem;
+import mantle.lib.CoreRepo;
 
 public class Manual extends CraftingItem {
 

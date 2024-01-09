@@ -5,15 +5,6 @@ import static mantle.lib.CoreRepo.modId;
 import static mantle.lib.CoreRepo.modName;
 import static mantle.lib.CoreRepo.modVersion;
 
-import mantle.books.BookData;
-import mantle.books.BookDataStore;
-import mantle.common.IDDumps;
-import mantle.common.MProxyCommon;
-import mantle.items.Manual;
-import mantle.lib.CoreConfig;
-import mantle.lib.CoreRepo;
-import mantle.lib.environment.EnvironmentChecks;
-import mantle.utils.CraftingHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -24,6 +15,15 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import mantle.books.BookData;
+import mantle.books.BookDataStore;
+import mantle.common.IDDumps;
+import mantle.common.MProxyCommon;
+import mantle.items.Manual;
+import mantle.lib.CoreConfig;
+import mantle.lib.CoreRepo;
+import mantle.lib.environment.EnvironmentChecks;
+import mantle.utils.CraftingHandler;
 
 /**
  * Mantle

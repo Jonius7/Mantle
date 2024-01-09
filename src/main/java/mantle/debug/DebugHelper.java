@@ -4,9 +4,9 @@ import static mantle.lib.CoreConfig.debug_enableChat;
 import static mantle.lib.CoreConfig.debug_enableConsole;
 import static mantle.lib.CoreRepo.logger;
 
-import mantle.player.PlayerUtils;
-
 import net.minecraft.entity.player.EntityPlayer;
+
+import mantle.player.PlayerUtils;
 
 /**
  * IDebuggable helper
