@@ -32,6 +32,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class SmallFontRenderer implements IResourceManagerReloadListener {
 
     private static final ResourceLocation[] unicodePageLocations = new ResourceLocation[256];
+    private static final String NEWLINE_REGEX_SEQUENCE = "\\\\n";
 
     /** Array of width of all the characters in default.png */
     private int[] charWidth = new int[256];
@@ -809,7 +810,9 @@ public class SmallFontRenderer implements IResourceManagerReloadListener {
      * Breaks a string into a list of pieces that will fit a specified width.
      */
     public List<String> listFormattedStringToWidth(String text, int width) {
-        return Arrays.asList(this.wrapFormattedStringToWidth(text, width).split("\n"));
+        return Arrays.stream(text.split(NEWLINE_REGEX_SEQUENCE))
+                .flatMap(line -> Arrays.stream(this.wrapFormattedStringToWidth(line, width).split("\n")))
+                .collect(Collectors.toList());
     }
 
     /**
