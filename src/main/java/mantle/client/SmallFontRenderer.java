@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 
@@ -31,6 +32,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class SmallFontRenderer implements IResourceManagerReloadListener {
 
     private static final ResourceLocation[] unicodePageLocations = new ResourceLocation[256];
+    private static final String NEWLINE_REGEX_SEQUENCE = "\\\\n";
 
     /** Array of width of all the characters in default.png */
     private int[] charWidth = new int[256];
@@ -568,41 +570,41 @@ public class SmallFontRenderer implements IResourceManagerReloadListener {
     /**
      * Render string either left or right aligned depending on bidiFlag
      */
-    private int renderStringAligned(String par1Str, int par2, int par3, int par4, int par5, boolean par6) {
+    private int renderStringAligned(String textLine, int x, int y, int par4, int color, boolean darkDropShadow) {
         if (this.bidiFlag) {
-            par1Str = this.bidiReorder(par1Str);
-            int i1 = this.getStringWidth(par1Str);
-            par2 = par2 + par4 - i1;
+            textLine = this.bidiReorder(textLine);
+            int i1 = this.getStringWidth(textLine);
+            x = x + par4 - i1;
         }
 
-        return this.renderString(par1Str, par2, par3, par5, par6);
+        return this.renderString(textLine, x, y, color, darkDropShadow);
     }
 
     /**
      * Render single line string by setting GL color, current (posX,posY), and calling renderStringAtPos()
      */
-    private int renderString(String par1Str, int par2, int par3, int par4, boolean par5) {
+    private int renderString(String par1Str, int x, int y, int color, boolean darkDropShadow) {
         if (par1Str == null) {
             return 0;
         } else {
-            if ((par4 & -67108864) == 0) {
-                par4 |= -16777216;
+            if ((color & -67108864) == 0) {
+                color |= -16777216;
             }
 
-            if (par5) {
-                par4 = (par4 & 16579836) >> 2 | par4 & -16777216;
+            if (darkDropShadow) {
+                color = (color & 16579836) >> 2 | color & -16777216;
             }
 
-            this.red = (float) (par4 >> 16 & 255) / 255.0F;
-            this.blue = (float) (par4 >> 8 & 255) / 255.0F;
-            this.green = (float) (par4 & 255) / 255.0F;
-            this.alpha = (float) (par4 >> 24 & 255) / 255.0F;
+            this.red = (float) (color >> 16 & 255) / 255.0F;
+            this.blue = (float) (color >> 8 & 255) / 255.0F;
+            this.green = (float) (color & 255) / 255.0F;
+            this.alpha = (float) (color >> 24 & 255) / 255.0F;
             boolean gl_blend = GL11.glIsEnabled(GL11.GL_BLEND);
             if (!gl_blend) GL11.glEnable(GL11.GL_BLEND);
             GL11.glColor4f(this.red, this.blue, this.green, this.alpha);
-            this.posX = (float) par2;
-            this.posY = (float) par3;
-            this.renderStringAtPos(par1Str, par5);
+            this.posX = (float) x;
+            this.posY = (float) y;
+            this.renderStringAtPos(par1Str, darkDropShadow);
             if (!gl_blend) GL11.glDisable(GL11.GL_BLEND);
             return (int) this.posX;
         }
@@ -765,28 +767,28 @@ public class SmallFontRenderer implements IResourceManagerReloadListener {
      * set
      */
     @SuppressWarnings("raw")
-    private void renderSplitString(String par1Str, int par2, int par3, int par4, boolean par5) {
-        List<String> list = this.listFormattedStringToWidth(par1Str, par4);
+    private void renderSplitString(String text, int x, int y, int width, boolean darkDropShadow) {
+        List<String> lines = this.listFormattedStringToWidth(text, width);
 
-        for (Iterator<String> iterator = list.iterator(); iterator.hasNext(); par3 += this.FONT_HEIGHT) {
+        for (Iterator<String> iterator = lines.iterator(); iterator.hasNext(); y += this.FONT_HEIGHT) {
             String s1 = iterator.next();
-            this.renderStringAligned(s1, par2, par3, par4, this.textColor, par5);
+            this.renderStringAligned(s1, x, y, width, this.textColor, darkDropShadow);
         }
     }
 
     /**
      * Returns the width of the wordwrapped String (maximum length is parameter k)
      */
-    public int splitStringWidth(String par1Str, int par2) {
-        return this.FONT_HEIGHT * this.listFormattedStringToWidth(par1Str, par2).size();
+    public int splitStringWidth(String text, int width) {
+        return this.FONT_HEIGHT * this.listFormattedStringToWidth(text, width).size();
     }
 
     /**
      * Set unicodeFlag controlling whether strings should be rendered with Unicode fonts instead of the default.png
      * font.
      */
-    public void setUnicodeFlag(boolean par1) {
-        this.unicodeFlag = par1;
+    public void setUnicodeFlag(boolean value) {
+        this.unicodeFlag = value;
     }
 
     /**
@@ -800,31 +802,33 @@ public class SmallFontRenderer implements IResourceManagerReloadListener {
     /**
      * Set bidiFlag to control if the Unicode Bidirectional Algorithm should be run before rendering any string.
      */
-    public void setBidiFlag(boolean par1) {
-        this.bidiFlag = par1;
+    public void setBidiFlag(boolean value) {
+        this.bidiFlag = value;
     }
 
     /**
      * Breaks a string into a list of pieces that will fit a specified width.
      */
-    public List<String> listFormattedStringToWidth(String par1Str, int par2) {
-        return Arrays.asList(this.wrapFormattedStringToWidth(par1Str, par2).split("\n"));
+    public List<String> listFormattedStringToWidth(String text, int width) {
+        return Arrays.stream(text.split(NEWLINE_REGEX_SEQUENCE))
+                .flatMap(line -> Arrays.stream(this.wrapFormattedStringToWidth(line, width).split("\n")))
+                .collect(Collectors.toList());
     }
 
     /**
      * Inserts newline and formatting into a string to wrap it within the specified width.
      */
-    String wrapFormattedStringToWidth(String par1Str, int par2) {
-        int j = this.sizeStringToWidth(par1Str, par2);
+    String wrapFormattedStringToWidth(String text, int witdh) {
+        int j = this.sizeStringToWidth(text, witdh);
 
-        if (par1Str.length() <= j) {
-            return par1Str;
+        if (text.length() <= j) {
+            return text;
         } else {
-            String s1 = par1Str.substring(0, j);
-            char c0 = par1Str.charAt(j);
+            String s1 = text.substring(0, j);
+            char c0 = text.charAt(j);
             boolean flag = c0 == 32 || c0 == 10;
-            String s2 = getFormatFromString(s1) + par1Str.substring(j + (flag ? 1 : 0));
-            return s1 + "\n" + this.wrapFormattedStringToWidth(s2, par2);
+            String s2 = getFormatFromString(s1) + text.substring(j + (flag ? 1 : 0));
+            return s1 + "\n" + this.wrapFormattedStringToWidth(s2, witdh);
         }
     }
 
@@ -832,14 +836,14 @@ public class SmallFontRenderer implements IResourceManagerReloadListener {
      * Determines how many characters from the string will fit into the specified width.
      */
     @SuppressWarnings("fallthrough")
-    private int sizeStringToWidth(String par1Str, int par2) {
-        int j = par1Str.length();
+    private int sizeStringToWidth(String text, int width) {
+        int j = text.length();
         int k = 0;
         int l = 0;
         int i1 = -1;
 
         for (boolean flag = false; l < j; ++l) {
-            char c0 = par1Str.charAt(l);
+            char c0 = text.charAt(l);
 
             switch (c0) {
                 case 10:
@@ -848,7 +852,7 @@ public class SmallFontRenderer implements IResourceManagerReloadListener {
                 case 167:
                     if (l < j - 1) {
                         ++l;
-                        char c1 = par1Str.charAt(l);
+                        char c1 = text.charAt(l);
 
                         if (c1 != 108 && c1 != 76) {
                             if (c1 == 114 || c1 == 82 || isFormatColor(c1)) {
@@ -876,7 +880,7 @@ public class SmallFontRenderer implements IResourceManagerReloadListener {
                 break;
             }
 
-            if (k > par2) {
+            if (k > width) {
                 break;
             }
         }
