@@ -14,7 +14,7 @@ public final class CoreRepo {
 
     public static final String modId = "GRADLETOKEN_MODID";
     public static final String modName = "GRADLETOKEN_MODNAME";
-    public static final String modVersion = "GRADLETOKEN_VERSION";
+    public static final String modVersion = "0.5.1";
 
     public static final Logger logger = LogManager.getLogger(modName);
 
