@@ -4,4 +4,10 @@ plugins {
     id 'com.gtnewhorizons.gtnhconvention'
 }
 
-version = "${minecraftVersion}-" + "${modVersion}"
+def fullVersion = "${minecraftVersion}"-"${modVersion}"
+
+tasks.processResources {
+    filesMatching('CoreRepo.java') { // if you want to replace in Java sources
+        expand(VERSION: fullVersion)
+    }
+}
